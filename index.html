@@ -1111,6 +1111,11 @@
     writing-mode: vertical-rl;
   }
 
+  @media (max-width: 1024px) {
+    .dl-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .dl-divider { display: none !important; }
+  }
+
   @media (max-width: 768px) {
     .step-cards { grid-template-columns: 1fr; }
   }
