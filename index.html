@@ -484,51 +484,68 @@
   .wf-bonus strong { color: var(--cf-col); font-style: normal; font-weight: 600; }
 
   /* ══════════════════════════════════════════
-     BONI (inhaltliche Ergänzungen)
+     BONI (inhaltliche Ergänzungen – luftig, präsent)
   ══════════════════════════════════════════ */
-  .boni-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
+  .boni-list {
+    margin-top: 4rem;
   }
-  .boni-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.75rem 2rem;
-    transition: border-color .25s;
+  .boni-item {
+    padding: 4rem 0 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    max-width: 42rem;
   }
-  .boni-card:hover { border-color: var(--copper); }
-  .boni-card h3 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .boni-item:first-child { padding-top: 0; }
+  .boni-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .boni-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--copper-dk) 10%, var(--copper-dk) 90%, transparent);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .boni-item:hover::before { opacity: 1; }
+  .boni-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    line-height: 1;
     color: var(--copper);
-    margin-bottom: 0.75rem;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
   }
-  .boni-card p {
-    font-size: 0.9rem;
+  .boni-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .boni-item p {
+    font-size: 1.05rem;
     color: var(--muted2);
-    line-height: 1.75;
+    line-height: 1.85;
     margin: 0;
   }
-  .boni-card code {
+  .boni-item code {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8em;
+    font-size: 0.85em;
     background: var(--bg3);
     color: var(--gold);
-    padding: 0.1rem 0.35rem;
+    padding: 0.15rem 0.4rem;
     border-radius: 2px;
   }
-  .boni-card a {
+  .boni-item a {
     color: var(--copper);
     text-decoration: none;
     border-bottom: 1px solid var(--border2);
     transition: color .2s, border-color .2s;
   }
-  .boni-card a:hover { color: var(--gold); border-bottom-color: var(--copper); }
+  .boni-item a:hover { color: var(--gold); border-bottom-color: var(--copper); }
 
   /* ══════════════════════════════════════════
      PROMPTS – TERMINAL STYLE
@@ -1476,17 +1493,20 @@ vorliegenden </span><span class="keyword">SSH-Key</span><span class="question">.
     <div class="sec-label reveal">06 — Boni</div>
     <h2 class="reveal">Drei inhaltliche Ergänzungen.<small>SSH + Kennwort-Manager, Skill &amp; Rules, Template-Repo.</small></h2>
 
-    <div class="boni-grid reveal">
-      <div class="boni-card">
-        <h3>Bonus 1 — SSH-Key mit Kennwort-Manager</h3>
+    <div class="boni-list reveal">
+      <div class="boni-item">
+        <div class="boni-num">01</div>
+        <h3>SSH-Key mit Kennwort-Manager</h3>
         <p>Für Commit und Push auf GitHub einen SSH-Key verwenden – keine Passwörter im Browser, keine Token-Pflege. Den Schlüssel einmal anlegen, beim Git-Client (Terminal oder GUI) hinterlegen und mit einem Kennwort-Manager die Passphrase sicher ablegen. So läuft die Authentifizierung zuverlässig: Commit kann lokal erfolgen, Push braucht deine Freigabe – der Kennwort-Manager liefert die Passphrase bei Bedarf. Einmal einrichten, danach nahtlos nutzen.</p>
       </div>
-      <div class="boni-card">
-        <h3>Bonus 2 — Claude Skill &amp; Cursor Rules aus dem Relaunch</h3>
+      <div class="boni-item">
+        <div class="boni-num">02</div>
+        <h3>Claude Skill &amp; Cursor Rules aus dem Relaunch</h3>
         <p>Nach dem Relaunch und der Erarbeitung des CI einen <strong>Claude Skill</strong> und die analogen <strong>Cursor Rules</strong> erstellen. Darin festhalten, wie Webseiten und Präsentationen von BERENT aussehen und aufgebaut sind (Farben, Typo, responsive, Plus-Symbol). So sehen neue Webseiten und Präsentationen ab sofort immer gleich aus – die KI nutzt den Skill bzw. die Rules als verbindliche Vorgabe und hält sich an das CI.</p>
       </div>
-      <div class="boni-card">
-        <h3>Bonus 3 — Template-Repository für Subdomains</h3>
+      <div class="boni-item">
+        <div class="boni-num">03</div>
+        <h3>Template-Repository für Subdomains</h3>
         <p>Ein <strong>Repository-Template</strong> (z. B. <a href="https://github.com/peerendees/berent-website-template" target="_blank" rel="noopener">berent-website-template</a>) als GitHub-Template-Repo anlegen. Enthält das vollständige Projektgerüst inkl. Rules als Submodule. Für zukünftige Subdomain-Projekte: GitHub → „Use this template“ → neues Repo anlegen → <code>git clone --recurse-submodules</code>. Das Setup-Skript (<code>berent-rules-setup</code>) sorgt bei bestehenden Projekten dafür, dass nach den Rules und dem CI mit dem Template gearbeitet wird. Eine Änderung im Rules-Repo (<a href="https://github.com/peerendees/berent-website-rules" target="_blank" rel="noopener">berent-website-rules</a>) → alle Projekte können mit <code>git submodule update --remote .cursor/rules</code> aktualisieren. Vercel: „Include Git submodules“ aktivieren.</p>
       </div>
     </div>
