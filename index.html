@@ -876,8 +876,136 @@
     .wf-arrow { flex-direction: row; padding: 0.5rem 0; }
     .ci-grid { grid-template-columns: 1fr; }
     h1 { font-size: 4.5rem; }
+    .dl-grid { grid-template-columns: 1fr; }
+    .dl-divider { display: none; }
   }
-</style>
+
+  /* ── STEP CARDS (Sektion 00 + 02) ── */
+  .step-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .step-card {
+    display: flex;
+    gap: 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color .25s;
+  }
+  .step-card:hover { border-color: var(--copper); }
+  .step-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--copper);
+    line-height: 1;
+    min-width: 2.5rem;
+    opacity: .5;
+  }
+  .step-content {}
+  .step-title {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: .95rem;
+    color: var(--text);
+    margin-bottom: .5rem;
+  }
+  .step-content p {
+    font-size: .85rem;
+    color: var(--muted2);
+    line-height: 1.7;
+  }
+  .step-content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    background: #1a1510;
+    color: var(--gold);
+    padding: .1rem .35rem;
+    border-radius: 2px;
+  }
+
+  /* ── DOWNLOAD GRID (Sektion 01) ── */
+  .dl-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  .dl-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: border-color .25s;
+  }
+  .dl-card:hover { border-color: var(--copper); }
+  .dl-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--copper);
+    display: inline-block;
+    padding: .2rem .6rem;
+    border-radius: 2px;
+    margin-bottom: .75rem;
+  }
+  .dl-tool {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: .05em;
+    color: var(--text);
+    margin-bottom: .25rem;
+  }
+  .dl-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem;
+    color: var(--muted);
+    letter-spacing: .05em;
+    margin-bottom: 1rem;
+  }
+  .dl-desc {
+    font-size: .85rem;
+    color: var(--muted2);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .dl-steps { display: flex; flex-direction: column; gap: .5rem; }
+  .dl-step {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    color: var(--muted2);
+  }
+  .dl-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--copper);
+    flex-shrink: 0;
+  }
+  .dl-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+  }
+  .dl-or {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+    writing-mode: vertical-rl;
+  }
+
+  @media (max-width: 768px) {
+    .step-cards { grid-template-columns: 1fr; }
 </head>
 <body>
 <div class="glow-orb"></div>
@@ -910,10 +1038,128 @@
   </div>
 </div>
 
-<!-- ═══════════════════ FOLIE 1: INFRASTRUKTUR ═══════════════════ -->
+<!-- ═══════════════════ FOLIE 0: PROJEKT ANLEGEN ═══════════════════ -->
 <div class="wrap">
 <section>
-  <div class="sec-label reveal">01 — Die Infrastruktur</div>
+  <div class="sec-label reveal">00 — Vorbereitung</div>
+  <h2 class="reveal">Projekt in Cursor<br>anlegen.<small>Lokale Basis. Sichtbare Dateien.</small></h2>
+
+  <div class="step-cards reveal">
+    <div class="step-card">
+      <div class="step-n">01</div>
+      <div class="step-content">
+        <div class="step-title">Cursor öffnen &amp; Ordner wählen</div>
+        <p>Starte Cursor AI. Klicke oben links auf <code>File → Open Folder</code> und wähle einen vorhandenen Ordner – oder erstelle einen neuen, z.B. <code>~/Projekte/mein-relaunch</code>. Cursor lädt den Ordner als Projekt.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">02</div>
+      <div class="step-content">
+        <div class="step-title">Explorer-Ansicht aktivieren</div>
+        <p>Der linke Explorer zeigt alle Dateien und Ordner deines Projekts. Neue Dateien, die Cursor erstellt, erscheinen hier sofort. Du siehst jederzeit, was lokal auf deinem Rechner liegt.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">03</div>
+      <div class="step-content">
+        <div class="step-title">Erste Datei anlegen</div>
+        <p>Rechtsklick im Explorer → <code>New File</code> → <code>index.html</code>. Ab jetzt arbeitet Cursor in diesem Ordner. Alle generierten Dateien landen direkt hier – lokal, offline verfügbar, unter deiner Kontrolle.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">04</div>
+      <div class="step-content">
+        <div class="step-title">Empfohlene Ordnerstruktur</div>
+        <p>Lege gleich passende Unterordner an: <code>/assets/images/</code> für Grafiken, <code>/assets/fonts/</code> für Schriftarten. So bleiben übernommene Dateien aus der bestehenden Webseite sauber organisiert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ FOLIE 1: WEBSITE HERUNTERLADEN ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">01 — Relaunch-Grundlage</div>
+  <h2 class="reveal">Bestehende Website<br>herunterladen.<small>Browser-Download oder FTP.</small></h2>
+
+  <div class="dl-grid reveal">
+    <div class="dl-card">
+      <div class="dl-badge">Variante A</div>
+      <div class="dl-tool">Browser-Download</div>
+      <div class="dl-subtitle">HTTrack (Windows/Linux) · SiteSucker (Mac)</div>
+      <p class="dl-desc">Spiegelt die komplette Webseite lokal – HTML, CSS, Bilder und alle verlinkten Dateien. Einfach URL eingeben, Zielordner wählen, starten. Ideal wenn kein FTP-Zugang vorhanden ist.</p>
+      <div class="dl-steps">
+        <div class="dl-step"><span class="dl-dot"></span>Tool herunterladen &amp; öffnen</div>
+        <div class="dl-step"><span class="dl-dot"></span>URL der bestehenden Webseite eingeben</div>
+        <div class="dl-step"><span class="dl-dot"></span>Projektordner als Ausgabe wählen</div>
+        <div class="dl-step"><span class="dl-dot"></span>Download starten – fertig</div>
+      </div>
+    </div>
+
+    <div class="dl-divider">
+      <div class="dl-or">oder</div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-badge">Variante B</div>
+      <div class="dl-tool">FTP-Download</div>
+      <div class="dl-subtitle">CyberDuck (Mac) · FileZilla (Windows/Linux)</div>
+      <p class="dl-desc">Direkter Zugriff auf den Hosting-Server. Vollständige Kontrolle über alle Dateien – auch solche, die bei einem Browser-Download nicht erfasst werden (z.B. serverseitige Konfigurationen).</p>
+      <div class="dl-steps">
+        <div class="dl-step"><span class="dl-dot"></span>CyberDuck öffnen → Neue Verbindung</div>
+        <div class="dl-step"><span class="dl-dot"></span>Server, Benutzername &amp; Passwort vom Hoster</div>
+        <div class="dl-step"><span class="dl-dot"></span>Dateien per Drag &amp; Drop in Projektordner ziehen</div>
+        <div class="dl-step"><span class="dl-dot"></span>Gewünschte Assets auswählen &amp; übernehmen</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ FOLIE 2: ASSETS BEREITSTELLEN ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">02 — Assets &amp; Dateien</div>
+  <h2 class="reveal">Inhalte in Cursor<br>bereitstellen.<small>Grafiken. Fonts. Per @-Referenz.</small></h2>
+
+  <div class="step-cards reveal">
+    <div class="step-card">
+      <div class="step-n">01</div>
+      <div class="step-content">
+        <div class="step-title">Dateien in den Projektordner verschieben</div>
+        <p>Kopiere die heruntergeladenen Assets (Logos, Bilder, Fonts) aus dem Download-Ordner in deinen Cursor-Projektordner – z.B. nach <code>/assets/images/</code>. Cursor erkennt sie sofort im Explorer.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">02</div>
+      <div class="step-content">
+        <div class="step-title">Dateien per @ im Prompt referenzieren</div>
+        <p>Im Cursor-Chat einfach <code>@dateiname.png</code> eintippen – Cursor zeigt Vorschläge aus deinem Projekt. So kann die KI direkt auf deine Grafiken zugreifen und sie im Relaunch berücksichtigen.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">03</div>
+      <div class="step-content">
+        <div class="step-title">Bestehende HTML/CSS analysieren lassen</div>
+        <p>Füge heruntergeladene HTML- oder CSS-Dateien ebenfalls in den Projektordner. Mit <code>@index.html</code> oder <code>@style.css</code> kann Cursor das bestehende Corporate Design erkennen und übernehmen.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">04</div>
+      <div class="step-content">
+        <div class="step-title">Tipp: Nur relevante Dateien übernehmen</div>
+        <p>Nicht alles vom alten Server ist sinnvoll. Wähle gezielt: Logo, Schriften, Hauptgrafiken, ggf. bestehende CSS-Variablen. Überflüssige CMS-Dateien oder Server-Konfigurationen weglassen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ FOLIE 3: INFRASTRUKTUR ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">03 — Die Infrastruktur</div>
   <h2 class="reveal">Die Webseiten-<br>Infrastruktur.<small>Vier Werkzeuge. Eine Pipeline.</small></h2>
 
   <div class="infra-grid reveal">
@@ -944,9 +1190,9 @@
   </div>
 </section>
 
-<!-- ═══════════════════ FOLIE 2: WORKFLOW ═══════════════════ -->
+<!-- ═══════════════════ FOLIE 4: WORKFLOW ═══════════════════ -->
 <section>
-  <div class="sec-label reveal">02 — Der Workflow</div>
+  <div class="sec-label reveal">04 — Der Workflow</div>
   <h2 class="reveal">Vom Prompt<br>zur Live-Seite.<small>Push. Deploy. Fertig.</small></h2>
 
   <div class="workflow-outer reveal">
@@ -1008,7 +1254,7 @@
 
 <!-- ═══════════════════ PROMPTS ═══════════════════ -->
 <section>
-  <div class="sec-label reveal">03 — Cursor Prompts</div>
+  <div class="sec-label reveal">05 — Cursor Prompts</div>
   <h2 class="reveal">Die Prompts.<small>Dein Leitfaden. Schritt für Schritt.</small></h2>
   <p class="prompts-intro reveal">Führe die Prompts in dieser Reihenfolge aus. Nach jedem Schritt: Ergebnis lesen, einordnen, ggf. für den nächsten Prompt nutzen.</p>
 
@@ -1086,23 +1332,26 @@ Wo hat die Webseite Optimierungspotenzial?</span></div>
       </div>
       <div class="term-body">
         <div class="term-prompt-line"><span class="ps1">cursor › </span><span class="question">Führe einen Relaunch dieser Website durch.
-Übernehme Inhalte soweit es möglich ist,
-ebenso das Corporate Design, und ergänze
-den Relaunch um die Empfehlungen
+Die heruntergeladenen Dateien der bestehenden
+Website liegen in </span><span class="keyword">@/assets/original/</span><span class="question">.
+Verwende </span><span class="keyword">@logo.svg @style.css</span><span class="question"> um das
+Corporate Design zu erkennen und zu übernehmen.
+Übernehme alle Inhalte und Grafiken aus
+</span><span class="keyword">@/assets/images/</span><span class="question"> soweit sinnvoll.
+Ergänze den Relaunch um die Empfehlungen
 hinsichtlich </span><span class="keyword">SEO und GEO</span><span class="question">.
-Mache Vorschläge zur Technologie,
-erstelle die Webseiten-Dateien lokal
-und zeige die neuen Dateien direkt im Editor.</span></div>
+Erstelle die neuen Webseiten-Dateien lokal
+und zeige sie direkt im Editor.</span></div>
       </div>
       <div class="prompt-hint">
-        <strong>→ Jetzt konsumieren:</strong> Schau dir die erstellten Dateien im Editor an. Stimmt das Corporate Design? Sind SEO-Empfehlungen umgesetzt? Erst wenn du zufrieden bist, geht es weiter.
+        <strong>→ Vorbereitung:</strong> Stelle sicher, dass Logo, CSS und Grafiken der alten Seite im Projektordner liegen (Sektionen 01–02). Je mehr Dateien du per @ referenzierst, desto präziser wird der Relaunch.
       </div>
       <div class="term-footer">
         <div class="pause-line">
           <div class="pause-dot"></div>
           <span class="pause-txt">Pause — Dateien prüfen & ggf. nachbessern</span>
         </div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'Führe einen Relaunch dieser Website durch. Übernehme Inhalte soweit es möglich ist, ebenso das Corporate Design, und ergänze den Relaunch um die Empfehlungen hinsichtlich SEO und GEO. Mache Vorschläge zur Technologie, erstelle die Webseiten-Dateien lokal und zeige die neuen Dateien direkt im Editor.')">Kopieren</button>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Führe einen Relaunch dieser Website durch. Die heruntergeladenen Dateien der bestehenden Website liegen in @/assets/original/. Verwende @logo.svg @style.css um das Corporate Design zu erkennen und zu übernehmen. Übernehme alle Inhalte und Grafiken aus @/assets/images/ soweit sinnvoll. Ergänze den Relaunch um die Empfehlungen hinsichtlich SEO und GEO. Erstelle die neuen Webseiten-Dateien lokal und zeige sie direkt im Editor.')">Kopieren</button>
       </div>
     </div>
   </div>
