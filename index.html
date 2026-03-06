@@ -168,7 +168,6 @@
     max-width: 500px;
     line-height: 1.8;
     animation: fadeUp 1s 0.35s ease both;
-    
   }
 
   .tool-stack {
@@ -483,6 +482,53 @@
     
   }
   .wf-bonus strong { color: var(--cf-col); font-style: normal; font-weight: 600; }
+
+  /* ══════════════════════════════════════════
+     BONI (inhaltliche Ergänzungen)
+  ══════════════════════════════════════════ */
+  .boni-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .boni-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.75rem 2rem;
+    transition: border-color .25s;
+  }
+  .boni-card:hover { border-color: var(--copper); }
+  .boni-card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.75rem;
+  }
+  .boni-card p {
+    font-size: 0.9rem;
+    color: var(--muted2);
+    line-height: 1.75;
+    margin: 0;
+  }
+  .boni-card code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    background: var(--bg3);
+    color: var(--gold);
+    padding: 0.1rem 0.35rem;
+    border-radius: 2px;
+  }
+  .boni-card a {
+    color: var(--copper);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border2);
+    transition: color .2s, border-color .2s;
+  }
+  .boni-card a:hover { color: var(--gold); border-bottom-color: var(--copper); }
 
   /* ══════════════════════════════════════════
      PROMPTS – TERMINAL STYLE
@@ -869,6 +915,7 @@
   @media (max-width: 900px) {
     .hero { padding: 2rem; }
     .hero::after { left: 2rem; }
+    .hero-body { padding: 3rem 0 2rem; }
     .wrap { padding: 0 2rem; }
     footer { padding: 2rem; }
     .infra-grid { grid-template-columns: 1fr 1fr; }
@@ -878,6 +925,40 @@
     h1 { font-size: 4.5rem; }
     .dl-grid { grid-template-columns: 1fr; }
     .dl-divider { display: none; }
+    /* Tool-Chips umbrechen statt horizontal zu quetschen */
+    .tool-stack { flex-wrap: wrap; gap: 0.5rem; }
+    .tool-chip { border-left: 1px solid var(--border); border-radius: 4px; }
+    .tool-chip:first-child { border-radius: 4px 0 0 4px; }
+    .tool-chip:last-child { border-radius: 0 4px 4px 0; }
+    .tool-chip:nth-child(n) { border-radius: 4px; }
+  }
+
+  /* Schmale Viewports: weniger Padding, kleinere Typo */
+  @media (max-width: 600px) {
+    .hero { padding: 1.25rem 1rem; min-height: auto; }
+    .hero::after { left: 1rem; }
+    .hero-body { padding: 2rem 0 1.5rem; }
+    .nav { padding-left: 0; font-size: 0.6rem; }
+    .nav-brand span { max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .eyebrow { font-size: 0.6rem; letter-spacing: 0.2em; margin-bottom: 1.25rem; }
+    .eyebrow::before { width: 24px; }
+    h1 { font-size: clamp(2.25rem, 10vw, 3.5rem); margin-bottom: 1.5rem; line-height: 0.95; }
+    .hero-desc { font-size: 0.95rem; max-width: none; margin-bottom: 0; }
+    .tool-stack { gap: 0.5rem; margin-top: 0.5rem; }
+    .tool-chip { padding: 0.4rem 0.75rem; font-size: 0.6rem; }
+    .wrap { padding: 0 1rem; }
+    section { padding: 4rem 0; }
+    .sec-label { margin-bottom: 2rem; font-size: 0.55rem; }
+    h2 { font-size: clamp(1.75rem, 6vw, 2.5rem); margin-bottom: 2rem; }
+    footer { padding: 1.5rem 1rem; }
+  }
+
+  /* Sehr schmale Displays (z. B. kleine Smartphones) */
+  @media (max-width: 380px) {
+    .hero { padding: 1rem 0.75rem; }
+    .hero::after { left: 0.75rem; }
+    .wrap { padding: 0 0.75rem; }
+    h1 { font-size: 2rem; }
   }
 
   /* ── STEP CARDS (Sektion 00 + 02) ── */
@@ -1384,6 +1465,29 @@ vorliegenden </span><span class="keyword">SSH-Key</span><span class="question">.
           <span class="pause-txt">→ Fertig. Vercel deployed automatisch.</span>
         </div>
         <button class="copy-btn" onclick="copyPrompt(this, 'Pushe die Dateien nun nach https://github.com/deinname/deinewebseiterelaunch\nZur Anmeldung verwende meinen vorliegenden SSH-Key.')">Kopieren</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BONI ═══════════════════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label reveal">06 — Boni</div>
+    <h2 class="reveal">Drei inhaltliche Ergänzungen.<small>SSH + Kennwort-Manager, Skill &amp; Rules, Template-Repo.</small></h2>
+
+    <div class="boni-grid reveal">
+      <div class="boni-card">
+        <h3>Bonus 1 — SSH-Key mit Kennwort-Manager</h3>
+        <p>Für Commit und Push auf GitHub einen SSH-Key verwenden – keine Passwörter im Browser, keine Token-Pflege. Den Schlüssel einmal anlegen, beim Git-Client (Terminal oder GUI) hinterlegen und mit einem Kennwort-Manager die Passphrase sicher ablegen. So läuft die Authentifizierung zuverlässig: Commit kann lokal erfolgen, Push braucht deine Freigabe – der Kennwort-Manager liefert die Passphrase bei Bedarf. Einmal einrichten, danach nahtlos nutzen.</p>
+      </div>
+      <div class="boni-card">
+        <h3>Bonus 2 — Claude Skill &amp; Cursor Rules aus dem Relaunch</h3>
+        <p>Nach dem Relaunch und der Erarbeitung des CI einen <strong>Claude Skill</strong> und die analogen <strong>Cursor Rules</strong> erstellen. Darin festhalten, wie Webseiten und Präsentationen von BERENT aussehen und aufgebaut sind (Farben, Typo, responsive, Plus-Symbol). So sehen neue Webseiten und Präsentationen ab sofort immer gleich aus – die KI nutzt den Skill bzw. die Rules als verbindliche Vorgabe und hält sich an das CI.</p>
+      </div>
+      <div class="boni-card">
+        <h3>Bonus 3 — Template-Repository für Subdomains</h3>
+        <p>Ein <strong>Repository-Template</strong> (z. B. <a href="https://github.com/peerendees/berent-website-template" target="_blank" rel="noopener">berent-website-template</a>) als GitHub-Template-Repo anlegen. Enthält das vollständige Projektgerüst inkl. Rules als Submodule. Für zukünftige Subdomain-Projekte: GitHub → „Use this template“ → neues Repo anlegen → <code>git clone --recurse-submodules</code>. Das Setup-Skript (<code>berent-rules-setup</code>) sorgt bei bestehenden Projekten dafür, dass nach den Rules und dem CI mit dem Template gearbeitet wird. Eine Änderung im Rules-Repo (<a href="https://github.com/peerendees/berent-website-rules" target="_blank" rel="noopener">berent-website-rules</a>) → alle Projekte können mit <code>git submodule update --remote .cursor/rules</code> aktualisieren. Vercel: „Include Git submodules“ aktivieren.</p>
       </div>
     </div>
   </div>
