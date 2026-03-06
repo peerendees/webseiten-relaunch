@@ -490,7 +490,7 @@
     margin-top: 4rem;
   }
   .boni-item {
-    padding: 4rem 0 4rem 3rem;
+    padding: 4rem 0 4rem 0.75rem;
     border-bottom: 1px solid var(--border);
     position: relative;
     max-width: 42rem;
@@ -507,6 +507,45 @@
     transition: opacity 0.3s;
   }
   .boni-item:hover::before { opacity: 1; }
+  .boni-intro {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+  .boni-steps {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .boni-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    color: var(--muted2);
+    line-height: 1.6;
+  }
+  .boni-step-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+    flex-shrink: 0;
+    margin-top: 0.5em;
+  }
+  .boni-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
   .boni-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 4rem;
@@ -546,6 +585,7 @@
     transition: color .2s, border-color .2s;
   }
   .boni-item a:hover { color: var(--gold); border-bottom-color: var(--copper); }
+  .boni-step code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg3); color: var(--gold); padding: 0.1rem 0.35rem; border-radius: 2px; }
 
   /* ══════════════════════════════════════════
      PROMPTS – TERMINAL STYLE
@@ -1131,7 +1171,7 @@
       <div class="plus-mark"></div>
       <span>BERENT.AI — Beratung + Entwicklung</span>
     </a>
-    <span class="nav-badge">Anleitung v2</span>
+    <span class="nav-badge">Anleitung v3</span>
   </nav>
 
   <div class="hero-body">
@@ -1370,7 +1410,7 @@
 <section>
   <div class="sec-label reveal">05 — Cursor Prompts</div>
   <h2 class="reveal">Die Prompts.<small>Dein Leitfaden. Schritt für Schritt.</small></h2>
-  <p class="prompts-intro reveal">Führe die Prompts in dieser Reihenfolge aus. Nach jedem Schritt: Ergebnis lesen, einordnen, ggf. für den nächsten Prompt nutzen.</p>
+  <p class="prompts-intro reveal">Führe die Prompts in dieser Reihenfolge aus. Nach jedem Schritt: Ergebnis lesen, einordnen, ggf. für den nächsten Prompt nutzen. Am Ende der Änderungen: <strong>Commit und Push</strong> – die Befehle kannst du aus dem Chat ins Cursor-Terminal kopieren (<code>git add .</code>, <code>git commit -m "…"</code>, <code>git push</code>).</p>
 
   <!-- PROMPT 1 -->
   <div class="prompt-item reveal">
@@ -1507,21 +1547,52 @@ vorliegenden </span><span class="keyword">SSH-Key</span><span class="question">.
     <div class="sec-label reveal">06 — Boni</div>
     <h2 class="reveal">Drei inhaltliche Ergänzungen.<small>SSH + Kennwort-Manager, Skill &amp; Rules, Template-Repo.</small></h2>
 
+    <p class="boni-intro reveal">Nach Änderungen an der Seite immer <strong>Commit und Push</strong> ausführen – z. B. Befehle aus dem Cursor-Chat ins integrierte Terminal kopieren. Warum manchmal keine erneute Anmeldung nötig ist: Cursor nutzt deinen lokalen Git-Zustand; wenn der SSH-Key einmal entsperrt ist (oder die Passphrase im Kennwort-Manager/Keychain gespeichert), übernimmt das Terminal das. Bei manueller Nutzung im eigenen Terminal wird die Passphrase bei jedem Push abgefragt, sofern nicht gespeichert.</p>
+
     <div class="boni-list reveal">
       <div class="boni-item">
         <div class="boni-num">01</div>
         <h3>SSH-Key mit Kennwort-Manager</h3>
-        <p>Für Commit und Push auf GitHub einen SSH-Key verwenden – keine Kennwörter im Browser, keine Token-Pflege. Den Schlüssel einmal anlegen, beim Git-Client (Terminal oder GUI) hinterlegen und mit einem Kennwort-Manager die Passphrase sicher ablegen. So läuft die Authentifizierung zuverlässig: Commit kann lokal erfolgen, Push braucht deine Freigabe – der Kennwort-Manager liefert die Passphrase bei Bedarf. Einmal einrichten, danach nahtlos nutzen.</p>
+        <p>Für Commit und Push auf GitHub einen SSH-Key verwenden – keine Kennwörter im Browser, keine Token-Pflege. Passphrase im Kennwort-Manager ablegen; dann liefert sie die Authentifizierung bei Bedarf.</p>
+        <div class="boni-sub">Schritt-für-Schritt: SSH-Key in GitHub einrichten</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>Im Terminal: <code>ssh-keygen -t ed25519 -C "deine-email@beispiel.de"</code> – Enter, optional Passphrase setzen und im Kennwort-Manager speichern.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Öffentlichen Schlüssel anzeigen (kopieren): <code>cat ~/.ssh/id_ed25519.pub</code> (bzw. <code>id_rsa.pub</code> bei RSA).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>GitHub → Einstellungen → SSH and GPG keys → New SSH key → Key einfügen, Namen vergeben, speichern.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Remote auf SSH umstellen (falls noch HTTPS): <code>git remote set-url origin git@github.com:nutzer/repo.git</code>. Danach: Commit wie gewohnt, Push nutzt den SSH-Key.</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Am Ende von Änderungen: <code>git add .</code>, <code>git commit -m "…"</code>, <code>git push</code> – die Befehle kannst du aus dem Chat ins Cursor-Terminal kopieren.</p>
       </div>
       <div class="boni-item">
         <div class="boni-num">02</div>
         <h3>Claude Skill &amp; Cursor Rules aus dem Relaunch</h3>
-        <p>Nach dem Relaunch und der Erarbeitung des CI einen <strong>Claude Skill</strong> und die analogen <strong>Cursor Rules</strong> erstellen. Darin festhalten, wie Webseiten und Präsentationen von BERENT aussehen und aufgebaut sind (Farben, Typo, responsive, Plus-Symbol). So sehen neue Webseiten und Präsentationen ab sofort immer gleich aus – die KI nutzt den Skill bzw. die Rules als verbindliche Vorgabe und hält sich an das CI.</p>
+        <p class="boni-intro">Rules und Skills legen fest, wie deine Webseite und alle zugehörigen Seiten (z. B. Landing Pages) aussehen und aufgebaut sind. Die KI hält sich daran – einheitliches Layout, Farben, Typo, responsive. So bleiben alle Unterseiten konsistent.</p>
+        <p>Einen <strong>Claude Skill</strong> bzw. <strong>Cursor Rules</strong> anlegen, die dein CI und deine Layout-Vorgaben beschreiben (Farben, Schriften, responsive, wiederkehrende Elemente).</p>
+        <div class="boni-sub">Schritt-für-Schritt: Rules für deine Webseite &amp; Landing Pages</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>In Cursor: <code>.cursor/rules/</code> anlegen (oder vorhandenes Rules-Repo als Submodule einbinden).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Eine oder mehrere <code>.mdc</code>-Dateien mit Beschreibung (description), ggf. globs (z. B. <code>**/*.html</code>), und den konkreten Vorgaben: Farben, Typografie, Breakpoints, Komponenten.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Für alle neuen Seiten (Landing Pages, Unterseiten): dieselben Rules nutzen – die KI wendet sie beim Erzeugen von HTML/CSS automatisch an.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Bei Bedarf Claude Skill analog anlegen, damit auch außerhalb von Cursor ein einheitliches Vorgaben-Dokument existiert.</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Nach Anpassungen: Commit und Push; Befehle ggf. aus dem Chat ins Terminal kopieren.</p>
       </div>
       <div class="boni-item">
         <div class="boni-num">03</div>
         <h3>Template-Repository für Subdomains</h3>
-        <p>Ein <strong>Repository-Template</strong> (z. B. <a href="https://github.com/peerendees/berent-website-template" target="_blank" rel="noopener">berent-website-template</a>) als GitHub-Template-Repo anlegen. Enthält das vollständige Projektgerüst inkl. Rules als Submodule. Für zukünftige Subdomain-Projekte: GitHub → „Use this template“ → neues Repo anlegen → <code>git clone --recurse-submodules</code>. Das Setup-Skript (<code>berent-rules-setup</code>) sorgt bei bestehenden Projekten dafür, dass nach den Rules und dem CI mit dem Template gearbeitet wird. Eine Änderung im Rules-Repo (<a href="https://github.com/peerendees/berent-website-rules" target="_blank" rel="noopener">berent-website-rules</a>) → alle Projekte können mit <code>git submodule update --remote .cursor/rules</code> aktualisieren. Vercel: „Include Git submodules“ aktivieren.</p>
+        <p>Ein <strong>Template-Repo</strong> enthält das vollständige Projektgerüst inkl. Rules (als Submodule). Du nutzt es je nach Situation unterschiedlich:</p>
+        <div class="boni-sub">Neues Projekt (von null starten)</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>Auf GitHub das Template-Repo öffnen (z. B. <a href="https://github.com/peerendees/berent-website-template" target="_blank" rel="noopener">berent-website-template</a>) → <strong>Use this template</strong> → neues Repo anlegen (Name z. B. <code>meine-landing.de</code>).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Lokal klonen <strong>mit</strong> Submodules: <code>git clone --recurse-submodules git@github.com:nutzer/meine-landing.de.git</code>.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span><code>npm install</code> und <code>npm run build</code> (falls im Template vorgesehen); mit Vercel verbinden, <strong>Include Git submodules</strong> aktivieren.</li>
+        </ul>
+        <div class="boni-sub">Bestehendes Projekt (Rules nachrüsten)</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>Im Projektordner: <code>berent-rules-setup</code> ausführen (oder Setup-Skript von deinem Rules-Repo). Das hängt das Rules-Repo als Submodule unter <code>.cursor/rules</code> ein.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Commit &amp; Push: <code>git add .gitmodules .cursor/rules</code>, <code>git commit -m "Rules als Submodule einbinden"</code>, <code>git push</code>. In Vercel „Include Git submodules“ aktivieren.</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Rules zentral aktualisieren: <code>git submodule update --remote .cursor/rules</code>, dann Commit und Push. Alle Projekte können so die gleichen Rules nutzen.</p>
       </div>
     </div>
   </div>
@@ -1535,7 +1606,8 @@ vorliegenden </span><span class="keyword">SSH-Key</span><span class="question">.
     <div class="plus-mark"></div>
     BERENT
   </div>
-  <span>Webseiten-Relaunch Anleitung · v2.0 · berent.ai</span>
+  <!-- Versions-Schema: Hauptversion V3 → V4; kleine Updates V3.0 → V3.1; Korrekturen V3.1 → V3.1.1 -->
+  <span>Webseiten-Relaunch Anleitung · v3.0 · berent.ai</span>
   <div class="footer-links" style="display:flex;gap:2rem;align-items:center;">
     <a href="https://berent.ai/impressum.html" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'">Impressum</a>
     <a href="https://berent.ai" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.5rem;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'">← Zurück zur Hauptseite</a>
