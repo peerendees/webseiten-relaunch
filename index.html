@@ -494,7 +494,6 @@
     padding: 4rem 0 4rem 0.75rem;
     border-bottom: 1px solid var(--border);
     position: relative;
-    max-width: 42rem;
   }
   .boni-item:first-child { padding-top: 0; }
   .boni-item:last-child { border-bottom: none; padding-bottom: 0; }
@@ -529,7 +528,10 @@
     font-size: 1.05rem;
     color: var(--muted2);
     line-height: 1.6;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
+  .boni-step code { overflow-wrap: break-word; word-break: break-word; }
   .boni-step-dot {
     width: 6px;
     height: 6px;
