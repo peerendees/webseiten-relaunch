@@ -1155,7 +1155,15 @@
 
   @media (max-width: 1024px) {
     .dl-grid { grid-template-columns: 1fr !important; gap: 2rem; }
-    .dl-divider { display: none !important; }
+    .dl-divider {
+      display: flex !important;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 0;
+      width: 100%;
+    }
+    .dl-or { writing-mode: horizontal-tb; }
   }
 
   @media (max-width: 768px) {
