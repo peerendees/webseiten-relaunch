@@ -532,6 +532,12 @@
     word-wrap: break-word;
   }
   .boni-step code { overflow-wrap: break-word; word-break: break-word; }
+  .boni-step-code-line {
+    display: block;
+    text-align: center;
+    margin: 0.35rem 0;
+  }
+  .boni-step-code-line code { display: inline-block; }
   .boni-step-dot {
     width: 6px;
     height: 6px;
@@ -1054,7 +1060,6 @@
     min-width: 2.5rem;
     opacity: .5;
   }
-  .step-content {}
   .step-title {
     font-family: 'Lora', serif;
     font-weight: 600;
@@ -1549,10 +1554,10 @@
         <p>Für Commit und Push auf GitHub einen SSH-Key verwenden – keine Kennwörter im Browser, keine Token-Pflege. Passphrase im Kennwort-Manager ablegen; dann liefert sie die Authentifizierung bei Bedarf.</p>
         <div class="boni-sub">Schritt-für-Schritt: SSH-Key in GitHub einrichten</div>
         <ul class="boni-steps">
-          <li class="boni-step"><span class="boni-step-dot"></span>Im Terminal: <code>ssh-keygen -t ed25519 -C "deine-email@beispiel.de"</code> – Enter, optional Passphrase setzen und im Kennwort-Manager speichern.</li>
-          <li class="boni-step"><span class="boni-step-dot"></span>Öffentlichen Schlüssel anzeigen (kopieren): <code>cat ~/.ssh/id_ed25519.pub</code> (bzw. <code>id_rsa.pub</code> bei RSA).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Im Terminal:<span class="boni-step-code-line"><code>ssh-keygen -t ed25519 -C "deine-email@beispiel.de"</code></span> – Enter, optional Passphrase setzen und im Kennwort-Manager speichern.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Öffentlichen Schlüssel anzeigen (kopieren):<span class="boni-step-code-line"><code>cat ~/.ssh/id_ed25519.pub</code></span> (bzw. <code>id_rsa.pub</code> bei RSA).</li>
           <li class="boni-step"><span class="boni-step-dot"></span>GitHub → Einstellungen → SSH and GPG keys → New SSH key → Key einfügen, Namen vergeben, speichern.</li>
-          <li class="boni-step"><span class="boni-step-dot"></span>Remote auf SSH umstellen (falls noch HTTPS): <code>git remote set-url origin git@github.com:nutzer/repo.git</code>. Danach: Commit wie gewohnt, Push nutzt den SSH-Key.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Remote auf SSH umstellen (falls noch HTTPS):<span class="boni-step-code-line"><code>git remote set-url origin git@github.com:nutzer/repo.git</code></span> Danach: Commit wie gewohnt, Push nutzt den SSH-Key.</li>
         </ul>
         <p style="margin-top:1.25rem;">Am Ende von Änderungen: <code>git add .</code>, <code>git commit -m "…"</code>, <code>git push</code> – die Befehle kannst du aus dem Chat ins Cursor-Terminal kopieren.</p>
       </div>
@@ -1563,8 +1568,8 @@
         <p>Einen <strong>Claude Skill</strong> bzw. <strong>Cursor Rules</strong> anlegen, die dein CI und deine Layout-Vorgaben beschreiben (Farben, Schriften, responsive, wiederkehrende Elemente).</p>
         <div class="boni-sub">Schritt-für-Schritt: Rules für deine Webseite &amp; Landingpages</div>
         <ul class="boni-steps">
-          <li class="boni-step"><span class="boni-step-dot"></span>In Cursor: <code>.cursor/rules/</code> anlegen (oder vorhandenes Rules-Repo als Submodule einbinden).</li>
-          <li class="boni-step"><span class="boni-step-dot"></span>Eine oder mehrere <code>.mdc</code>-Dateien mit Beschreibung (description), ggf. globs (z. B. <code>**/*.html</code>), und den konkreten Vorgaben: Farben, Typografie, Breakpoints, Komponenten.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>In Cursor:<span class="boni-step-code-line"><code>.cursor/rules/</code></span> anlegen (oder vorhandenes Rules-Repo als Submodule einbinden).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Eine oder mehrere<span class="boni-step-code-line"><code>.mdc</code></span> -Dateien mit Beschreibung (description), ggf. globs (z. B. <code>**/*.html</code>), und den konkreten Vorgaben: Farben, Typografie, Breakpoints, Komponenten.</li>
           <li class="boni-step"><span class="boni-step-dot"></span>Für alle neuen Seiten (Landingpages, Unterseiten): dieselben Rules nutzen – die KI wendet sie beim Erzeugen von HTML/CSS automatisch an.</li>
           <li class="boni-step"><span class="boni-step-dot"></span>Bei Bedarf Claude Skill analog anlegen, damit auch außerhalb von Cursor ein einheitliches Vorgaben-Dokument existiert.</li>
         </ul>
@@ -1577,15 +1582,15 @@
         <div class="boni-sub">Neues Projekt (von null starten)</div>
         <ul class="boni-steps">
           <li class="boni-step"><span class="boni-step-dot"></span>Auf GitHub das Template-Repo öffnen (z. B. <a href="https://github.com/peerendees/berent-website-template" target="_blank" rel="noopener">berent-website-template</a>) → <strong>Use this template</strong> → neues Repo anlegen (Name z. B. <code>meine-landing.de</code>).</li>
-          <li class="boni-step"><span class="boni-step-dot"></span>Lokal klonen <strong>mit</strong> Submodules: <code>git clone --recurse-submodules git@github.com:nutzer/meine-landing.de.git</code>.</li>
-          <li class="boni-step"><span class="boni-step-dot"></span><code>npm install</code> und <code>npm run build</code> (falls im Template vorgesehen); mit Vercel verbinden, <strong>Include Git submodules</strong> aktivieren.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Lokal klonen <strong>mit</strong> Submodules:<span class="boni-step-code-line"><code>git clone --recurse-submodules git@github.com:nutzer/meine-landing.de.git</code></span>.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span><span class="boni-step-code-line"><code>npm install</code> und <code>npm run build</code></span> (falls im Template vorgesehen); mit Vercel verbinden, <strong>Include Git submodules</strong> aktivieren.</li>
         </ul>
         <div class="boni-sub">Bestehendes Projekt (Rules nachrüsten)</div>
         <ul class="boni-steps">
-          <li class="boni-step"><span class="boni-step-dot"></span>Im Projektordner: <code>berent-rules-setup</code> ausführen (oder Setup-Skript von deinem Rules-Repo). Das hängt das Rules-Repo als Submodule unter <code>.cursor/rules</code> ein.</li>
-          <li class="boni-step"><span class="boni-step-dot"></span>Commit &amp; Push: <code>git add .gitmodules .cursor/rules</code>, <code>git commit -m "Rules als Submodule einbinden"</code>, <code>git push</code>. In Vercel „Include Git submodules“ aktivieren.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Im Projektordner:<span class="boni-step-code-line"><code>berent-rules-setup</code></span> ausführen (oder Setup-Skript von deinem Rules-Repo). Das hängt das Rules-Repo als Submodule unter <code>.cursor/rules</code> ein.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Commit &amp; Push:<span class="boni-step-code-line"><code>git add .gitmodules .cursor/rules</code><br><code>git commit -m "Rules als Submodule einbinden"</code><br><code>git push</code></span> In Vercel „Include Git submodules“ aktivieren.</li>
         </ul>
-        <p style="margin-top:1.25rem;">Rules zentral aktualisieren: <code>git submodule update --remote .cursor/rules</code>, dann Commit und Push. Alle Projekte können so die gleichen Rules nutzen.</p>
+        <p style="margin-top:1.25rem;">Rules zentral aktualisieren:<span class="boni-step-code-line"><code>git submodule update --remote .cursor/rules</code></span> Dann Commit und Push. Alle Projekte können so die gleichen Rules nutzen.</p>
       </div>
     </div>
   </div>
