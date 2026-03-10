@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webseiten-Relaunch – BERENT | Beratung + Entwicklung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:wght@300;400;600&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0e0e10;
+    --bg2:       #151518;
+    --bg3:       #1c1c20;
+    --border:    #2a2a2e;
+    --border2:   #3a3a40;
+    --copper:    #B5742A;
+    --copper-lt: #cc8c3e;
+    --gold:      #E8C98A;
+    --gold-dim:  #c4a870;
+    --copper-dk: #7a4e1c;
+    --text:      #C4BCB1;
+    --muted:     #7a6a58;
+    --muted2:    #9a8870;
+
+    --cursor-col: #c8453a;
+    --github-col: #d4cfc9;
+    --vercel-col: #f0ede8;
+    --cf-col:     #f6821f;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.5;
+  }
+
+  /* ── WARM GLOW ── */
+  .glow-orb {
+    position: fixed;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(181,116,42,0.05) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+    top: -200px; right: -200px;
+    animation: orb-drift 20s ease-in-out infinite alternate;
+  }
+  @keyframes orb-drift {
+    from { transform: translate(0,0); }
+    to   { transform: translate(-80px, 120px); }
+  }
+
+  /* ══════════════════════════════════════════
+     HERO
+  ══════════════════════════════════════════ */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 2.5rem 4rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  /* Decorative vertical line */
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 4rem; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border2) 20%, var(--border2) 80%, transparent);
+    pointer-events: none;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: fadeUp 1s ease both;
+    position: relative; z-index: 1;
+  }
+
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+
+  .plus-mark {
+    display: inline-block;
+    width: 14px; height: 14px;
+    position: relative;
+  }
+  .plus-mark::before, .plus-mark::after {
+    content: '';
+    position: absolute;
+    background: var(--gold);
+  }
+  .plus-mark::before { width: 2px; height: 100%; left: 50%; transform: translateX(-50%); }
+  .plus-mark::after  { width: 100%; height: 2px; top: 50%; transform: translateY(-50%); }
+
+  .nav-badge {
+    background: transparent;
+    border: 1px solid var(--copper-dk);
+    color: var(--copper);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 2rem;
+    position: relative; z-index: 1;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--copper);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp 1s 0.1s ease both;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--copper-dk);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 12vw, 11rem);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    animation: fadeUp 1s 0.2s ease both;
+    margin-bottom: 2.5rem;
+  }
+
+  h1 .accent { color: var(--copper); }
+  h1 .accent-gold { color: var(--gold); }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    max-width: 500px;
+    line-height: 1.8;
+    animation: fadeUp 1s 0.35s ease both;
+  }
+
+  .tool-stack {
+    display: flex; gap: 0;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .tool-chip {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--border);
+    border-left: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .tool-chip:first-child { border-left: 1px solid var(--border); }
+  .tool-chip:hover { background: var(--bg3); color: var(--text); border-color: var(--border2); }
+  .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ══════════════════════════════════════════
+     LAYOUT WRAPPER
+  ══════════════════════════════════════════ */
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    width: 100%;
+  }
+
+  section {
+    padding: 7rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-boni { padding-top: 2.5rem; }
+
+  .sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 4rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .sec-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--border2), transparent);
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+  h2 small {
+    display: block;
+    font-family: 'Lora', serif;
+    font-size: 0.22em;
+    font-weight: 300;
+    
+    color: var(--muted2);
+    letter-spacing: 0.05em;
+    line-height: 2;
+  }
+
+  /* ══════════════════════════════════════════
+     FOLIE 1: INFRASTRUKTUR
+  ══════════════════════════════════════════ */
+  .infra-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    gap: 0;
+  }
+
+  .infra-card {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .infra-card:last-child { border-right: none; }
+
+  /* Copper top accent line */
+  .infra-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+  }
+  .infra-card:hover::before { transform: scaleX(1); }
+  .infra-card:hover { background: var(--bg2); }
+
+  .infra-card.c-cursor::before { background: var(--cursor-col); }
+  .infra-card.c-github::before { background: var(--github-col); }
+  .infra-card.c-vercel::before { background: var(--vercel-col); }
+  .infra-card.c-cloudflare::before { background: var(--cf-col); }
+
+  .ic-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--border2);
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+  .infra-card:hover .ic-num { color: var(--border); }
+
+  .ic-tool {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .c-cursor .ic-tool  { color: var(--cursor-col); }
+  .c-github .ic-tool  { color: var(--github-col); }
+  .c-vercel .ic-tool  { color: var(--vercel-col); }
+  .c-cloudflare .ic-tool { color: var(--cf-col); }
+
+  .ic-role {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .ic-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .bonus-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    background: var(--cf-col);
+    color: #000;
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+    font-weight: 700;
+  }
+
+  /* ══════════════════════════════════════════
+     FOLIE 2: WORKFLOW – ANIMATED
+  ══════════════════════════════════════════ */
+  .workflow-outer {
+    position: relative;
+    padding: 3rem 0;
+  }
+
+  .wf-connector {
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent 0%,
+      var(--border2) 15%,
+      var(--copper-dk) 50%,
+      var(--border2) 85%,
+      transparent 100%);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .wf-grid {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr 80px 1fr;
+    align-items: start;
+    gap: 0;
+    position: relative;
+  }
+
+  .wf-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease, background 0.3s, border-color 0.3s;
+  }
+  .wf-card.visible { opacity: 1; transform: translateY(0); }
+  .wf-card:hover { background: var(--bg3); border-color: var(--border2); }
+
+  .wf-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 2rem; right: 2rem;
+    height: 1px;
+    background: transparent;
+    transition: background 0.4s;
+  }
+  .wf-card:hover::after { background: var(--copper-dk); }
+
+  .wf-step-n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .wf-tool-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+  }
+  .wf-card:nth-child(1) .wf-tool-name { color: var(--cursor-col); }
+  .wf-card:nth-child(3) .wf-tool-name { color: var(--github-col); }
+  .wf-card:nth-child(5) .wf-tool-name { color: var(--vercel-col); }
+
+  .wf-items { list-style: none; }
+  .wf-items li {
+    font-size: 0.88rem;
+    color: var(--muted2);
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 0.6rem;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .wf-items li:first-child { border-top: none; }
+  .wf-items li::before {
+    content: '→';
+    color: var(--copper);
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    margin-top: 0.15em;
+  }
+
+  /* Arrow between wf steps */
+  .wf-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 3.5rem;
+    gap: 0.4rem;
+    opacity: 0;
+    transition: opacity 0.7s 0.4s ease;
+  }
+  .wf-arrow.visible { opacity: 1; }
+
+  .arrow-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .arrow-body {
+    display: flex; align-items: center;
+    gap: 0;
+  }
+  .arrow-line {
+    width: 30px; height: 1px;
+    background: var(--copper);
+  }
+  .arrow-head {
+    width: 0; height: 0;
+    border-left: 7px solid var(--copper);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+
+  .wf-bonus {
+    margin-top: 2.5rem;
+    padding: 1.75rem 2rem;
+    border: 1px dashed var(--border2);
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    opacity: 0;
+    transition: opacity 0.7s 0.8s ease;
+  }
+  .wf-bonus.visible { opacity: 1; }
+
+  .bonus-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--cf-col);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .wf-bonus p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    
+  }
+  .wf-bonus strong { color: var(--cf-col); font-style: normal; font-weight: 600; }
+
+  /* ══════════════════════════════════════════
+     BONI (inhaltliche Ergänzungen – luftig, präsent)
+  ══════════════════════════════════════════ */
+  .boni-list {
+    margin-top: 4rem;
+  }
+  .boni-item {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .boni-item:first-child { padding-top: 0; }
+  .boni-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .boni-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--copper-dk) 10%, var(--copper-dk) 90%, transparent);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .boni-item:hover::before { opacity: 1; }
+  .boni-intro {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+  .boni-steps {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .boni-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    color: var(--muted2);
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .boni-step code { overflow-wrap: break-word; word-break: break-word; }
+  .boni-step-code-line {
+    display: block;
+    text-align: center;
+    margin: 0.35rem 0;
+  }
+  .boni-step-code-line code { display: inline-block; }
+  .boni-step-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+    flex-shrink: 0;
+    margin-top: 0.5em;
+  }
+  .boni-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .boni-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--copper);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .boni-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .boni-item p {
+    font-size: 1.2rem;
+    color: var(--muted2);
+    line-height: 1.85;
+    margin: 0;
+  }
+  .boni-item code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--bg3);
+    color: var(--gold);
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+  }
+  .boni-item a {
+    color: var(--copper);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border2);
+    transition: color .2s, border-color .2s;
+  }
+  .boni-item a:hover { color: var(--gold); border-bottom-color: var(--copper); }
+  .boni-step code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg3); color: var(--gold); padding: 0.1rem 0.35rem; border-radius: 2px; }
+
+  /* ══════════════════════════════════════════
+     PROMPTS – TERMINAL STYLE
+  ══════════════════════════════════════════ */
+  .prompts-intro {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    margin-bottom: 4rem;
+  }
+
+  .prompt-item { margin-bottom: 2.5rem; }
+  .prompt-item:last-of-type { margin-bottom: 1rem; }
+
+  .terminal-window {
+    border: 1px solid var(--border2);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .terminal-window:hover { border-color: var(--copper-dk); }
+
+  /* macOS-style title bar */
+  .term-bar {
+    display: flex; align-items: center; gap: 0;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+
+  .term-dots {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0.7rem 1rem;
+    flex-shrink: 0;
+  }
+  .term-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--border2);
+    transition: background 0.2s;
+  }
+  .terminal-window:hover .term-dot:nth-child(1) { background: #ff5f57; }
+  .terminal-window:hover .term-dot:nth-child(2) { background: #febc2e; }
+  .terminal-window:hover .term-dot:nth-child(3) { background: #28c840; }
+
+  .term-title {
+    flex: 1;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-right: 3rem; /* offset for dots */
+  }
+
+  .term-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.7rem;
+    border-left: 1px solid var(--border);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .term-tag.analyse  { color: #4a9eff; }
+  .term-tag.seo      { color: var(--gold); }
+  .term-tag.relaunch { color: var(--cursor-col); }
+  .term-tag.deploy   { color: var(--github-col); }
+
+  .term-body {
+    padding: 1.5rem 2rem;
+    background: #060504;
+  }
+
+  .term-prompt-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: #a89880;
+    white-space: pre-wrap;
+    word-break: break-word;
+    position: relative;
+  }
+
+  .term-prompt-line .ps1 {
+    color: var(--copper);
+    user-select: none;
+  }
+  .term-prompt-line .url-ref { color: var(--gold); }
+  .term-prompt-line .keyword { color: #c8e6c9; }
+  .term-prompt-line .question { color: #b0c4de; }
+
+  /* blinking cursor */
+  .cursor-blink {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--copper);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1.2s step-end infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .term-footer {
+    border-top: 1px solid var(--border);
+    padding: 0.9rem 2rem;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .copy-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { border-color: var(--copper); color: var(--copper); }
+
+  .pause-line {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .pause-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .pause-txt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  .prompt-hint {
+    padding: 1rem 2rem;
+    background: rgba(181,116,42,0.04);
+    border-left: 2px solid var(--copper-dk);
+    font-size: 0.88rem;
+    color: var(--muted2);
+    
+    line-height: 1.75;
+    margin-top: 0;
+    border-top: none;
+  }
+  .prompt-hint strong { color: var(--copper); font-style: normal; }
+
+  /* ══════════════════════════════════════════
+     NOTION ENTWURF
+  ══════════════════════════════════════════ */
+  .notion-wrap {
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .notion-header {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .notion-header-left {
+    display: flex; align-items: center; gap: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .notion-icon {
+    width: 24px; height: 24px;
+    background: var(--copper-dk);
+    display: grid; place-items: center;
+    font-size: 0.7rem; color: var(--gold);
+    flex-shrink: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0;
+  }
+
+  .draft-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    border: 1px solid var(--copper-dk);
+    color: var(--copper);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .notion-body { padding: 3rem; }
+
+  .notion-body h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .notion-meta {
+    display: flex; gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .meta-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+  .notion-h4 {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--copper);
+    margin: 1.75rem 0 0.6rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+  .notion-h4::before { content: '# '; color: var(--border2); }
+
+  .notion-body p {
+    font-size: 0.92rem;
+    color: var(--muted2);
+    line-height: 1.85;
+    margin-bottom: 0.5rem;
+  }
+  .notion-body p strong { color: var(--text); font-weight: 600; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78em;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.4rem;
+    color: var(--gold-dim);
+  }
+
+  .notion-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .notion-footer-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .notion-footer-note::before {
+    content: '⚠';
+    color: var(--copper);
+  }
+
+  .await-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  /* ══════════════════════════════════════════
+     CI EMPFEHLUNGEN
+  ══════════════════════════════════════════ */
+  .ci-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .ci-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+  .ci-card:hover { background: var(--bg2); }
+
+  .ci-card-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--copper-dk);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s;
+  }
+  .ci-card:hover .ci-card-n { color: var(--copper); }
+
+  .ci-card h4 {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .ci-card p {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .color-swatches {
+    display: flex; gap: 4px; margin: 0.75rem 0;
+  }
+  .swatch {
+    width: 24px; height: 24px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ══════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════ */
+  footer {
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-brand {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--copper);
+  }
+
+  /* ══════════════════════════════════════════
+     ANIMATIONS & SCROLL REVEAL
+  ══════════════════════════════════════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .dl-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .dl-divider { display: none; }
+    .infra-grid { grid-template-columns: 1fr; }
+    .step-cards { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .footer-links { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  }
+
+  @media (max-width: 900px) {
+    .hero { padding: 2rem; }
+    .hero::after { left: 2rem; }
+    .hero-body { padding: 3rem 0 2rem; }
+    .wrap { padding: 0 2rem; }
+    footer { padding: 2rem; }
+    .infra-grid { grid-template-columns: 1fr; }
+    .wf-grid { grid-template-columns: 1fr; }
+    .wf-arrow { flex-direction: row; padding: 0.5rem 0; }
+    .ci-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 4.5rem; }
+    .dl-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .dl-divider { display: none; }
+    /* Tool-Chips umbrechen statt horizontal zu quetschen */
+    .tool-stack { flex-wrap: wrap; gap: 0.5rem; }
+    .tool-chip { border-left: 1px solid var(--border); border-radius: 4px; }
+    .tool-chip:first-child { border-radius: 4px 0 0 4px; }
+    .tool-chip:last-child { border-radius: 0 4px 4px 0; }
+    .tool-chip:nth-child(n) { border-radius: 4px; }
+  }
+
+  /* Schmale Viewports: weniger Padding, kleinere Typo */
+  @media (max-width: 600px) {
+    .hero { padding: 1.25rem 1rem; min-height: auto; }
+    .hero::after { left: 1rem; }
+    .hero-body { padding: 2rem 0 1.5rem; }
+    .nav { padding-left: 0; font-size: 0.6rem; }
+    .nav-brand span { max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .eyebrow { font-size: 0.6rem; letter-spacing: 0.2em; margin-bottom: 1.25rem; }
+    .eyebrow::before { width: 24px; }
+    h1 { font-size: clamp(2.25rem, 10vw, 3.5rem); margin-bottom: 1.5rem; line-height: 0.95; }
+    .hero-desc { font-size: 1rem; max-width: none; margin-bottom: 0; }
+    .tool-stack { gap: 0.5rem; margin-top: 0.5rem; }
+    .tool-chip { padding: 0.4rem 0.75rem; font-size: 0.6rem; }
+    .wrap { padding: 0 1rem; }
+    section { padding: 4rem 0; }
+    .sec-label { margin-bottom: 2rem; font-size: 0.55rem; }
+    h2 { font-size: clamp(1.75rem, 6vw, 2.5rem); margin-bottom: 2rem; }
+    footer { padding: 1.5rem 1rem; }
+  }
+
+  /* Sehr schmale Displays (z. B. kleine Smartphones) */
+  @media (max-width: 380px) {
+    .hero { padding: 1rem 0.75rem; }
+    .hero::after { left: 0.75rem; }
+    .wrap { padding: 0 0.75rem; }
+    h1 { font-size: 2rem; }
+  }
+
+  /* ── STEP CARDS (Sektion 00 + 02) ── */
+  .step-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .step-card {
+    display: flex;
+    gap: 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color .25s;
+  }
+  .step-card:hover { border-color: var(--copper); }
+  .step-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--copper);
+    line-height: 1;
+    min-width: 2.5rem;
+    opacity: .5;
+  }
+  .step-title {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: .95rem;
+    color: var(--text);
+    margin-bottom: .5rem;
+  }
+  .step-content p {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    line-height: 1.7;
+  }
+  .step-content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    background: #1a1510;
+    color: var(--gold);
+    padding: .1rem .35rem;
+    border-radius: 2px;
+  }
+
+  /* ── DOWNLOAD GRID (Sektion 01) ── */
+  .dl-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  .dl-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: border-color .25s;
+  }
+  .dl-card:hover { border-color: var(--copper); }
+  .dl-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--copper);
+    display: inline-block;
+    padding: .2rem .6rem;
+    border-radius: 2px;
+    margin-bottom: .75rem;
+  }
+  .dl-tool {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: .05em;
+    color: var(--text);
+    margin-bottom: .25rem;
+  }
+  .dl-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem;
+    color: var(--muted);
+    letter-spacing: .05em;
+    margin-bottom: 1rem;
+  }
+  .dl-desc {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .dl-steps { display: flex; flex-direction: column; gap: .5rem; }
+  .dl-step {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    color: var(--muted2);
+  }
+  .dl-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--copper);
+    flex-shrink: 0;
+  }
+  .dl-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+  }
+  .dl-or {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+    writing-mode: vertical-rl;
+  }
+
+  @media (max-width: 1024px) {
+    .dl-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .dl-divider {
+      display: flex !important;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 0;
+      width: 100%;
+    }
+    .dl-or { writing-mode: horizontal-tb; }
+  }
+
+  @media (max-width: 768px) {
+    .step-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb"></div>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<div class="hero">
+  <nav class="nav">
+    <a href="https://berent.ai" class="nav-brand" style="text-decoration:none;color:inherit;">
+      <div class="plus-mark"></div>
+      <span>BERENT.AI — Beratung + Entwicklung</span>
+    </a>
+    <span class="nav-badge">V3</span>
+  </nav>
+
+  <div class="hero-body">
+    <div class="eyebrow">KI-gestützter Webseiten-Relaunch</div>
+    <h1>
+      <span class="accent">Von der</span><br>
+      Idee<span class="accent-gold"> + </span>ins<br>
+      <span class="accent">Netz.</span>
+    </h1>
+    <p class="hero-desc">Cursor AI, GitHub, Vercel und Cloudflare – vier Werkzeuge, ein nahtloser Workflow. Kein Server-Setup, kein manuelles Deployment. Nur Prompts und Ergebnisse. Ideal für DSGVO-konforme Landingpages im eigenen Produkt- und Dienstleistungsportfolio.</p>
+  </div>
+
+  <div class="tool-stack">
+    <div class="tool-chip"><div class="dot" style="background:var(--cursor-col)"></div>Cursor AI</div>
+    <div class="tool-chip"><div class="dot" style="background:var(--github-col)"></div>GitHub</div>
+    <div class="tool-chip"><div class="dot" style="background:var(--vercel-col)"></div>Vercel</div>
+    <div class="tool-chip"><div class="dot" style="background:var(--cf-col)"></div>Cloudflare</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOLIE 0: PROJEKT ANLEGEN ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">00 — Vorbereitung</div>
+  <h2 class="reveal">Projekt in Cursor<br>anlegen.<small>Lokale Basis. Sichtbare Dateien.</small></h2>
+
+  <div class="step-cards reveal">
+    <div class="step-card">
+      <div class="step-n">01</div>
+      <div class="step-content">
+        <div class="step-title">Cursor öffnen &amp; Ordner wählen</div>
+        <p>Starte Cursor AI. Klicke oben links auf <code>File → Open Folder</code> und wähle einen vorhandenen Ordner – oder erstelle einen neuen, z.B. <code>~/Projekte/mein-relaunch</code>. Cursor lädt den Ordner als Projekt.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">02</div>
+      <div class="step-content">
+        <div class="step-title">Explorer-Ansicht aktivieren</div>
+        <p>Der linke Explorer zeigt alle Dateien und Ordner deines Projekts. Neue Dateien, die Cursor erstellt, erscheinen hier sofort. Du siehst jederzeit, was lokal auf deinem Rechner liegt.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">03</div>
+      <div class="step-content">
+        <div class="step-title">Erste Datei anlegen</div>
+        <p>Rechtsklick im Explorer → <code>New File</code> → <code>index.html</code>. Ab jetzt arbeitet Cursor in diesem Ordner. Alle generierten Dateien landen direkt hier – lokal, offline verfügbar, unter deiner Kontrolle.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">04</div>
+      <div class="step-content">
+        <div class="step-title">Empfohlene Ordnerstruktur</div>
+        <p>Lege gleich passende Unterordner an: <code>/assets/images/</code> für Grafiken, <code>/assets/fonts/</code> für Schriftarten. So bleiben übernommene Dateien aus der bestehenden Webseite sauber organisiert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ FOLIE 1: WEBSITE HERUNTERLADEN ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">01 — Relaunch-Grundlage</div>
+  <h2 class="reveal">Bestehende Webseite<br>herunterladen.<small>Browser-Download oder FTP.</small></h2>
+
+  <div class="dl-grid reveal">
+    <div class="dl-card">
+      <div class="dl-badge">Variante A</div>
+      <div class="dl-tool">Browser-Download</div>
+      <div class="dl-subtitle">HTTrack (Windows/Linux) · SiteSucker (Mac)</div>
+      <p class="dl-desc">Spiegelt die komplette Webseite lokal – HTML, CSS, Bilder und alle verlinkten Dateien. Einfach URL eingeben, Zielordner wählen, starten. Ideal wenn kein FTP-Zugang vorhanden ist.</p>
+      <div class="dl-steps">
+        <div class="dl-step"><span class="dl-dot"></span>Tool herunterladen &amp; öffnen</div>
+        <div class="dl-step"><span class="dl-dot"></span>URL der bestehenden Webseite eingeben</div>
+        <div class="dl-step"><span class="dl-dot"></span>Projektordner als Ausgabe wählen</div>
+        <div class="dl-step"><span class="dl-dot"></span>Download starten – fertig</div>
+      </div>
+    </div>
+
+    <div class="dl-divider">
+      <div class="dl-or">oder</div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-badge">Variante B</div>
+      <div class="dl-tool">FTP-Download</div>
+      <div class="dl-subtitle">CyberDuck (Mac) · FileZilla (Windows/Linux)</div>
+      <p class="dl-desc">Direkter Zugriff auf den Hosting-Server. Vollständige Kontrolle über alle Dateien – auch solche, die bei einem Browser-Download nicht erfasst werden (z.B. serverseitige Konfigurationen).</p>
+      <div class="dl-steps">
+        <div class="dl-step"><span class="dl-dot"></span>CyberDuck öffnen → Neue Verbindung</div>
+        <div class="dl-step"><span class="dl-dot"></span>Server, Benutzername &amp; Kennwort vom Hoster</div>
+        <div class="dl-step"><span class="dl-dot"></span>Dateien per Drag &amp; Drop in Projektordner ziehen</div>
+        <div class="dl-step"><span class="dl-dot"></span>Gewünschte Assets auswählen &amp; übernehmen</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ FOLIE 2: ASSETS BEREITSTELLEN ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">02 — Assets &amp; Dateien</div>
+  <h2 class="reveal">Inhalte in Cursor<br>bereitstellen.<small>Grafiken. Fonts. Per @-Referenz.</small></h2>
+
+  <div class="step-cards reveal">
+    <div class="step-card">
+      <div class="step-n">01</div>
+      <div class="step-content">
+        <div class="step-title">Dateien in den Projektordner verschieben</div>
+        <p>Kopiere die heruntergeladenen Assets (Logos, Bilder, Fonts) aus dem Download-Ordner in deinen Cursor-Projektordner – z.B. nach <code>/assets/images/</code>. Cursor erkennt sie sofort im Explorer.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">02</div>
+      <div class="step-content">
+        <div class="step-title">Dateien per @ im Prompt referenzieren</div>
+        <p>Im Cursor-Chat einfach <code>@dateiname.png</code> eintippen – Cursor zeigt Vorschläge aus deinem Projekt. So kann die KI direkt auf deine Grafiken zugreifen und sie im Relaunch berücksichtigen.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">03</div>
+      <div class="step-content">
+        <div class="step-title">Bestehende HTML/CSS analysieren lassen</div>
+        <p>Füge heruntergeladene HTML- oder CSS-Dateien ebenfalls in den Projektordner. Mit <code>@index.html</code> oder <code>@style.css</code> kann Cursor das bestehende Corporate Design erkennen und übernehmen.</p>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-n">04</div>
+      <div class="step-content">
+        <div class="step-title">Tipp: Nur relevante Dateien übernehmen</div>
+        <p>Nicht alles vom alten Server ist sinnvoll. Wähle gezielt: Logo, Schriften, Hauptgrafiken, ggf. bestehende CSS-Variablen. Überflüssige CMS-Dateien oder Server-Konfigurationen weglassen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ FOLIE 3: INFRASTRUKTUR ═══════════════════ -->
+<div class="wrap">
+<section>
+  <div class="sec-label reveal">03 — Die Infrastruktur</div>
+  <h2 class="reveal">Die Webseiten-<br>Infrastruktur.<small>Vier Werkzeuge. Eine Pipeline.</small></h2>
+
+  <div class="infra-grid reveal">
+    <div class="infra-card c-cursor">
+      <div class="ic-num">01</div>
+      <div class="ic-tool"><span>Cursor AI</span></div>
+      <div class="ic-role">Entwicklungsumgebung</div>
+      <p class="ic-desc">KI-gestützter Code-Editor. Du beschreibst in natürlicher Sprache – Cursor schreibt den Code. Ideal ohne tiefe Programmierkenntnisse.</p>
+    </div>
+    <div class="infra-card c-github">
+      <div class="ic-num">02</div>
+      <div class="ic-tool"><span>GitHub</span></div>
+      <div class="ic-role">Sammlung & Versionierung</div>
+      <p class="ic-desc">Speichert alle Dateien deiner neuen Webseite und protokolliert jede Änderung. Jederzeit zurück zu einem früheren Stand. Und Vercel hört aktiv zu.</p>
+    </div>
+    <div class="infra-card c-vercel">
+      <div class="ic-num">03</div>
+      <div class="ic-tool"><span>Vercel</span></div>
+      <div class="ic-role">Live-Test & Deployment</div>
+      <p class="ic-desc">Sobald du nach GitHub pushst, deployed Vercel automatisch. Live-Link zum Testen – ohne Server-Setup, ohne manuelle Uploads, kostenlos.</p>
+    </div>
+    <div class="infra-card c-cloudflare">
+      <div class="ic-num">04</div>
+      <div class="ic-tool"><span>Cloudflare <span class="bonus-tag">Bonus</span></span></div>
+      <div class="ic-role">DNS, SSL & Analytik</div>
+      <p class="ic-desc">Steuerung deiner Domain, SSL-Zertifikat, Statistiken und Angriffsschutz. Der kostenfreie Account reicht für den Start vollständig aus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOLIE 4: WORKFLOW ═══════════════════ -->
+<section>
+  <div class="sec-label reveal">04 — Der Workflow</div>
+  <h2 class="reveal">Vom Prompt<br>zur Live-Seite.<small>Push. Deploy. Fertig.</small></h2>
+
+  <div class="workflow-outer reveal">
+    <div class="wf-grid">
+      <div class="wf-card" data-delay="0">
+        <div class="wf-step-n">Schritt 01</div>
+        <div class="wf-tool-name">Cursor AI</div>
+        <ul class="wf-items">
+          <li>Analyse der bestehenden Webseite</li>
+          <li>SEO- & GEO-Analyse per Prompt</li>
+          <li>Neuen Relaunch erstellen lassen</li>
+          <li>Dateien lokal im Editor prüfen</li>
+        </ul>
+      </div>
+
+      <div class="wf-arrow" data-delay="200">
+        <span class="arrow-lbl">Push</span>
+        <div class="arrow-body">
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+      </div>
+
+      <div class="wf-card" data-delay="300">
+        <div class="wf-step-n">Schritt 02</div>
+        <div class="wf-tool-name">GitHub</div>
+        <ul class="wf-items">
+          <li>Ablage der neuen Version</li>
+          <li>Versionskontrolle aktiv</li>
+          <li>Trigger für automatischen Deploy</li>
+        </ul>
+      </div>
+
+      <div class="wf-arrow" data-delay="500">
+        <span class="arrow-lbl">Deploy</span>
+        <div class="arrow-body">
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+      </div>
+
+      <div class="wf-card" data-delay="600">
+        <div class="wf-step-n">Schritt 03</div>
+        <div class="wf-tool-name">Vercel</div>
+        <ul class="wf-items">
+          <li>Automatische Veröffentlichung</li>
+          <li>Live-Link sofort teilbar</li>
+          <li>Testen vor dem echten Go-Live</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-bonus" id="wf-bonus">
+    <span class="bonus-icon">+ Cloudflare</span>
+    <p>DNS-Einträge, SSL-Zertifikat, Statistiken und Schutz deiner Domain – alles über den kostenlosen Cloudflare-Account. Sobald Vercel als Nameserver eingetragen ist, läuft deine echte Domain über denselben automatisierten Prozess.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROMPTS ═══════════════════ -->
+<section>
+  <div class="sec-label reveal">05 — Cursor Prompts</div>
+  <h2 class="reveal">Die Prompts.<small>Dein Leitfaden. Schritt für Schritt.</small></h2>
+  <p class="prompts-intro reveal">Führe die Prompts in dieser Reihenfolge aus. Nach jedem Schritt: Ergebnis lesen, einordnen, ggf. für den nächsten Prompt nutzen. Das Ergebnis ist eine deploybare, DSGVO-taugliche Basis – auch für Landingpages. Am Ende der Änderungen: <strong>Commit und Push</strong>. Cursor kann dir die Befehle für das Projekt vorschlagen; ist GitHub per SSH-Key dauerhaft verbunden, reicht es, „Commit und Push“ einzugeben oder einzusprechen. Die Befehle kannst du auch aus dem Chat ins Cursor-Terminal kopieren (<code>git add .</code>, <code>git commit -m "…"</code>, <code>git push</code>).</p>
+
+  <!-- PROMPT 1 -->
+  <div class="prompt-item reveal">
+    <div class="terminal-window">
+      <div class="term-bar">
+        <div class="term-dots">
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+        </div>
+        <span class="term-title">Prompt 01 / 04 — Analyse</span>
+        <span class="term-tag analyse">Analyse</span>
+      </div>
+      <div class="term-body">
+        <div class="term-prompt-line"><span class="ps1">cursor › </span><span class="question">Analysiere </span><span class="url-ref">https://deinewebseite.de</span><span class="question">. Was erkennst du? Und wie würdest du das Corporate Design beschreiben?</span><span class="cursor-blink"></span></div>
+      </div>
+      <div class="prompt-hint">
+        <strong>→ Jetzt konsumieren:</strong> Lies die Analyse sorgfältig. Was sagt Cursor über Farben, Schriften, Struktur? Diese Erkenntnisse fließen direkt in Prompt 3 ein.
+      </div>
+      <div class="term-footer">
+        <div class="pause-line">
+          <div class="pause-dot"></div>
+          <span class="pause-txt">Pause — Ergebnis lesen & verarbeiten</span>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Analysiere https://deinewebseite.de.\nWas erkennst du? Und wie würdest du das Corporate Design beschreiben?')">Kopieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMPT 2 -->
+  <div class="prompt-item reveal reveal-delay-1">
+    <div class="terminal-window">
+      <div class="term-bar">
+        <div class="term-dots">
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+        </div>
+        <span class="term-title">Prompt 02 / 04 — SEO & GEO</span>
+        <span class="term-tag seo">SEO & GEO</span>
+      </div>
+      <div class="term-body">
+        <div class="term-prompt-line"><span class="ps1">cursor › </span><span class="question">Ergänze die Analyse um die Fragestellung nach aktuellen </span><span class="keyword">SEO- und GEO-Standards</span><span class="question">. Wo hat die Webseite Optimierungspotenzial?</span></div>
+      </div>
+      <div class="prompt-hint">
+        <strong>→ Jetzt konsumieren:</strong> Welche SEO-Lücken nennt Cursor? Welche GEO-Aspekte (Generative Engine Optimization) werden erwähnt? Notiere die wichtigsten Punkte für Prompt 3.
+      </div>
+      <div class="term-footer">
+        <div class="pause-line">
+          <div class="pause-dot"></div>
+          <span class="pause-txt">Pause — Empfehlungen notieren</span>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Ergänze die Analyse um die Fragestellung nach aktuellen SEO- und GEO-Standards.\nWo hat die Webseite Optimierungspotenzial?')">Kopieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMPT 3 -->
+  <div class="prompt-item reveal reveal-delay-2">
+    <div class="terminal-window">
+      <div class="term-bar">
+        <div class="term-dots">
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+        </div>
+        <span class="term-title">Prompt 03 / 04 — Relaunch</span>
+        <span class="term-tag relaunch">Relaunch</span>
+      </div>
+      <div class="term-body">
+        <div class="term-prompt-line"><span class="ps1">cursor › </span><span class="question">Führe einen Relaunch dieser Webseite durch. Die heruntergeladenen Dateien der bestehenden Webseite liegen in </span><span class="keyword">@/assets/original/</span><span class="question">. Verwende </span><span class="keyword">@logo.svg @style.css</span><span class="question">, um das Corporate Design zu erkennen und zu übernehmen. Übernimm alle Inhalte und Grafiken aus </span><span class="keyword">@/assets/images/</span><span class="question">, soweit sinnvoll. Ergänze den Relaunch um die Empfehlungen hinsichtlich </span><span class="keyword">SEO und GEO</span><span class="question">. Erstelle die neuen Webseiten-Dateien lokal und öffne diese im Editor zum Review.</span></div>
+      </div>
+      <div class="prompt-hint">
+        <strong>→ Vorbereitung:</strong> Stelle sicher, dass Logo, CSS und Grafiken der alten Seite im Projektordner liegen (Sektionen 01–02). Je mehr Dateien du per @ referenzierst, desto präziser wird der Relaunch.
+      </div>
+      <div class="term-footer">
+        <div class="pause-line">
+          <div class="pause-dot"></div>
+          <span class="pause-txt">Pause — Dateien prüfen & ggf. nachbessern</span>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Führe einen Relaunch dieser Webseite durch. Die heruntergeladenen Dateien der bestehenden Webseite liegen in @/assets/original/. Verwende @logo.svg @style.css, um das Corporate Design zu erkennen und zu übernehmen. Übernimm alle Inhalte und Grafiken aus @/assets/images/, soweit sinnvoll. Ergänze den Relaunch um die Empfehlungen hinsichtlich SEO und GEO. Erstelle die neuen Webseiten-Dateien lokal und öffne diese im Editor zum Review.')">Kopieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMPT 4 -->
+  <div class="prompt-item reveal reveal-delay-3">
+    <div class="terminal-window">
+      <div class="term-bar">
+        <div class="term-dots">
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+          <div class="term-dot"></div>
+        </div>
+        <span class="term-title">Prompt 04 / 04 — GitHub Push</span>
+        <span class="term-tag deploy">Deploy</span>
+      </div>
+      <div class="term-body">
+        <div class="term-prompt-line"><span class="ps1">cursor › </span><span class="question">Pushe die Dateien nun nach </span><span class="url-ref">https://github.com/deinname/deinewebseiterelaunch</span><span class="question">, zur Anmeldung verwende meinen vorliegenden </span><span class="keyword">SSH-Key</span><span class="question">.</span></div>
+      </div>
+      <div class="prompt-hint">
+        <strong>→ Was passiert danach:</strong> Vercel erkennt den Push automatisch und deployed deine Seite. Du erhältst sofort einen Live-Link.
+      </div>
+      <div class="term-footer">
+        <div class="pause-line" style="opacity:0.4;">
+          <span class="pause-txt">→ Fertig. Vercel deployed automatisch.</span>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Pushe die Dateien nun nach https://github.com/deinname/deinewebseiterelaunch\nZur Anmeldung verwende meinen vorliegenden SSH-Key.')">Kopieren</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BONI ═══════════════════ -->
+<section class="section-boni">
+  <div class="sec-label reveal">06 — Boni</div>
+    <h2 class="reveal">Drei inhaltliche Ergänzungen.<small>SSH + Kennwort-Manager, Skill &amp; Rules, Template-Repo.</small></h2>
+
+    <p class="boni-intro reveal">Nach Änderungen an der Seite immer <strong>Commit und Push</strong> ausführen – z. B. Befehle aus dem Cursor-Chat ins integrierte Terminal kopieren. Warum manchmal keine erneute Anmeldung nötig ist: Cursor nutzt deinen lokalen Git-Zustand; wenn der SSH-Key einmal entsperrt ist (oder die Passphrase im Kennwort-Manager/Keychain gespeichert), übernimmt das Terminal das. Bei manueller Nutzung im eigenen Terminal wird die Passphrase bei jedem Push abgefragt, sofern nicht gespeichert.</p>
+
+    <div class="boni-list reveal">
+      <div class="boni-item">
+        <div class="boni-num">01</div>
+        <h3>SSH-Key mit Kennwort-Manager</h3>
+        <p>Für Commit und Push auf GitHub einen SSH-Key verwenden – keine Kennwörter im Browser, keine Token-Pflege. Passphrase im Kennwort-Manager ablegen; dann liefert sie die Authentifizierung bei Bedarf.</p>
+        <div class="boni-sub">Schritt-für-Schritt: SSH-Key in GitHub einrichten</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>Im Terminal:<span class="boni-step-code-line"><code>ssh-keygen -t ed25519 -C "deine-email@beispiel.de"</code></span> – Enter, optional Passphrase setzen und im Kennwort-Manager speichern.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Öffentlichen Schlüssel anzeigen (kopieren):<span class="boni-step-code-line"><code>cat ~/.ssh/id_ed25519.pub</code></span> (bzw. <code>id_rsa.pub</code> bei RSA).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>GitHub → Einstellungen → SSH and GPG keys → New SSH key → Key einfügen, Namen vergeben, speichern.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Remote auf SSH umstellen (falls noch HTTPS):<span class="boni-step-code-line"><code>git remote set-url origin git@github.com:nutzer/repo.git</code></span> Danach: Commit wie gewohnt, Push nutzt den SSH-Key.</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Am Ende von Änderungen: <code>git add .</code>, <code>git commit -m "…"</code>, <code>git push</code> – die Befehle kannst du aus dem Chat ins Cursor-Terminal kopieren.</p>
+      </div>
+      <div class="boni-item">
+        <div class="boni-num">02</div>
+        <h3>Claude Skill &amp; Cursor Rules aus dem Relaunch</h3>
+        <p class="boni-intro">Rules und Skills legen fest, wie deine Webseite und alle zugehörigen Seiten (z. B. Landingpages) aussehen und aufgebaut sind. Die KI hält sich daran – einheitliches Layout, Farben, Typo, responsive. So bleiben alle Unterseiten konsistent. Einheitliche Vorgaben unterstützen DSGVO-konforme Landingpages und können mit der Zeit zu größerer Reichweite und mehr Aufrufen beitragen.</p>
+        <p>Einen <strong>Claude Skill</strong> bzw. <strong>Cursor Rules</strong> anlegen, die dein CI und deine Layout-Vorgaben beschreiben (Farben, Schriften, responsive, wiederkehrende Elemente).</p>
+        <div class="boni-sub">Schritt-für-Schritt: Rules für deine Webseite &amp; Landingpages</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>In Cursor:<span class="boni-step-code-line"><code>.cursor/rules/</code></span> anlegen (oder vorhandenes Rules-Repo als Submodule einbinden).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Eine oder mehrere<span class="boni-step-code-line"><code>.mdc</code></span> -Dateien mit Beschreibung (description), ggf. globs (z. B. <code>**/*.html</code>), und den konkreten Vorgaben: Farben, Typografie, Breakpoints, Komponenten.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Für alle neuen Seiten (Landingpages, Unterseiten): dieselben Rules nutzen – die KI wendet sie beim Erzeugen von HTML/CSS automatisch an.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Bei Bedarf Claude Skill analog anlegen, damit auch außerhalb von Cursor ein einheitliches Vorgaben-Dokument existiert.</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Nach Anpassungen: Commit und Push; Befehle ggf. aus dem Chat ins Terminal kopieren.</p>
+      </div>
+      <div class="boni-item">
+        <div class="boni-num">03</div>
+        <h3>Template-Repository für Subdomains</h3>
+        <p>Ein <strong>Template-Repo</strong> enthält das vollständige Projektgerüst inkl. Rules (als Submodule). Es eignet sich besonders für DSGVO-konforme Landingpages zu Produkten und Dienstleistungen – mit der Zeit kann das zu größerer Bedeutung der Webseite durch mehr Aufrufe und Reichweite führen. Du nutzt es je nach Situation unterschiedlich:</p>
+        <div class="boni-sub">Neues Projekt (von null starten)</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>Auf GitHub das Template-Repo öffnen (z. B. <a href="https://github.com/peerendees/berent-website-template" target="_blank" rel="noopener">berent-website-template</a>) → <strong>Use this template</strong> → neues Repo anlegen (Name z. B. <code>meine-landing.de</code>).</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Lokal klonen <strong>mit</strong> Submodules:<span class="boni-step-code-line"><code>git clone --recurse-submodules git@github.com:nutzer/meine-landing.de.git</code></span>.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span><span class="boni-step-code-line"><code>npm install</code> und <code>npm run build</code></span> (falls im Template vorgesehen); mit Vercel verbinden, <strong>Include Git submodules</strong> aktivieren.</li>
+        </ul>
+        <div class="boni-sub">Bestehendes Projekt (Rules nachrüsten)</div>
+        <ul class="boni-steps">
+          <li class="boni-step"><span class="boni-step-dot"></span>Im Projektordner:<span class="boni-step-code-line"><code>berent-rules-setup</code></span> ausführen (oder Setup-Skript von deinem Rules-Repo). Das hängt das Rules-Repo als Submodule unter <code>.cursor/rules</code> ein.</li>
+          <li class="boni-step"><span class="boni-step-dot"></span>Commit &amp; Push:<span class="boni-step-code-line"><code>git add .gitmodules .cursor/rules</code><br><code>git commit -m "Rules als Submodule einbinden"</code><br><code>git push</code></span> In Vercel „Include Git submodules“ aktivieren.</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Rules zentral aktualisieren:<span class="boni-step-code-line"><code>git submodule update --remote .cursor/rules</code></span> Dann Commit und Push. Alle Projekte können so die gleichen Rules nutzen.</p>
+      </div>
+    </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="plus-mark"></div>
+    BERENT
+  </div>
+  <!-- Versions-Schema: Hauptversion V3 → V4; kleine Updates V3.0 → V3.1; Korrekturen V3.1 → V3.1.1 -->
+  <span>Webseiten-Relaunch Anleitung · v3.1.1 · berent.ai</span>
+  <div class="footer-links" style="display:flex;gap:2rem;align-items:center;">
+    <a href="https://berent.ai/impressum.html" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'">Impressum</a>
+    <a href="https://berent.ai" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.5rem;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'">← Zurück zur Hauptseite</a>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── ANIMATED WORKFLOW CARDS ──
+const wfObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const cards = entry.target.querySelectorAll('.wf-card, .wf-arrow');
+      cards.forEach(el => {
+        const delay = parseInt(el.dataset.delay || 0);
+        setTimeout(() => el.classList.add('visible'), delay);
+      });
+      const bonus = document.getElementById('wf-bonus');
+      if (bonus) setTimeout(() => bonus.classList.add('visible'), 900);
+      wfObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+const wfGrid = document.querySelector('.wf-grid');
+if (wfGrid) wfObs.observe(wfGrid);
+
+// ── COPY PROMPT ──
+function copyPrompt(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Kopiert ✓';
+    btn.style.borderColor = 'var(--copper)';
+    btn.style.color = 'var(--copper)';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>
