@@ -491,7 +491,7 @@
     margin-top: 4rem;
   }
   .boni-item {
-    padding: 4rem 0;
+    padding: 4rem 0 4rem 1.5rem;
     border-bottom: 1px solid var(--border);
     position: relative;
   }
@@ -524,7 +524,7 @@
   .boni-step {
     display: flex;
     align-items: flex-start;
-    gap: 0.6rem;
+    gap: 1rem;
     font-size: 1.05rem;
     color: var(--muted2);
     line-height: 1.6;
@@ -533,11 +533,17 @@
   }
   .boni-step code { overflow-wrap: break-word; word-break: break-word; }
   .boni-step-code-line {
-    display: block;
-    text-align: center;
-    margin: 0.35rem 0;
+    display: inline;
   }
-  .boni-step-code-line code { display: inline-block; }
+  .boni-step-code-line code {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding: 0.2rem 0.4rem;
+  }
   .boni-step-dot {
     width: 6px;
     height: 6px;
@@ -594,7 +600,7 @@
     transition: color .2s, border-color .2s;
   }
   .boni-item a:hover { color: var(--gold); border-bottom-color: var(--copper); }
-  .boni-step code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg3); color: var(--gold); padding: 0.1rem 0.35rem; border-radius: 2px; }
+  .boni-step code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg3); color: var(--gold); padding: 0.2rem 0.4rem; border-radius: 2px; vertical-align: middle; }
 
   /* ══════════════════════════════════════════
      PROMPTS – TERMINAL STYLE
