@@ -155,21 +155,36 @@
   }
 
   .theme-toggle {
-    border: 1px solid var(--border2);
-    background: transparent;
-    color: var(--muted2);
-    padding: 0.3rem 0.6rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    background: #141417;
+    border: 1px solid var(--border);
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 12px;
     cursor: pointer;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem;
     transition: border-color 0.2s, color 0.2s, background 0.2s;
   }
   .theme-toggle:hover {
     border-color: var(--copper);
     color: var(--copper);
-    background: color-mix(in srgb, var(--copper) 10%, transparent);
+    background: #1a1a1f;
+  }
+  :root[data-theme="light"] .theme-toggle {
+    background: #f0ebdf;
+  }
+  :root[data-theme="light"] .theme-toggle:hover {
+    background: #e6decf;
+  }
+  .theme-toggle svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .theme-toggle .hidden {
+    display: none;
   }
 
   .hero-body {
@@ -1248,7 +1263,10 @@
       <span>BERENT.AI — Beratung + Entwicklung</span>
     </a>
     <div class="nav-right">
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Darstellung umschalten">Modus: Dunkel</button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Farbschema wechseln">
+        <svg class="icon-moon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646Z"/></svg>
+        <svg class="icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+      </button>
       <span class="nav-badge">V3</span>
     </div>
   </nav>
@@ -1670,7 +1688,7 @@
   <span>Webseiten-Relaunch Anleitung · v3.1.1 · berent.ai</span>
   <div class="footer-links" style="display:flex;gap:2rem;align-items:center;">
     <a href="https://berent.ai/impressum.html" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'">Impressum</a>
-    <a href="https://berent.ai" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.5rem;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'">← Zurück zur Hauptseite</a>
+    <a href="https://berent.ai" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.5rem;" onmouseover="this.style.color='var(--copper)'" onmouseout="this.style.color='var(--muted)'" onclick="handleBackNavigation(event)">← Zurück zur Hauptseite</a>
   </div>
 </footer>
 
@@ -1679,6 +1697,8 @@
 const THEME_STORAGE_KEY = 'berent-theme';
 const root = document.documentElement;
 const toggle = document.getElementById('theme-toggle');
+const moonIcon = document.querySelector('.icon-moon');
+const sunIcon = document.querySelector('.icon-sun');
 
 function resolveInitialTheme() {
   const saved = localStorage.getItem(THEME_STORAGE_KEY);
@@ -1688,7 +1708,9 @@ function resolveInitialTheme() {
 
 function applyTheme(theme) {
   root.setAttribute('data-theme', theme);
-  if (toggle) toggle.textContent = `Modus: ${theme === 'light' ? 'Hell' : 'Dunkel'}`;
+  const isLight = theme === 'light';
+  if (moonIcon) moonIcon.classList.toggle('hidden', !isLight);
+  if (sunIcon) sunIcon.classList.toggle('hidden', isLight);
 }
 
 const initialTheme = resolveInitialTheme();
@@ -1701,6 +1723,19 @@ if (toggle) {
     localStorage.setItem(THEME_STORAGE_KEY, next);
     applyTheme(next);
   });
+}
+
+function handleBackNavigation(event) {
+  event.preventDefault();
+  if (window.opener) {
+    window.close();
+    return;
+  }
+  if (document.referrer.includes('berent.ai')) {
+    history.back();
+    return;
+  }
+  window.location.href = 'https://berent.ai';
 }
 
 // ── SCROLL REVEAL ──
