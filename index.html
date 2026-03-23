@@ -26,6 +26,29 @@
     --github-col: #d4cfc9;
     --vercel-col: #f0ede8;
     --cf-col:     #f6821f;
+    --card:       #151518;
+  }
+
+  :root[data-theme="light"] {
+    --bg:        #f6f2ea;
+    --bg2:       #fffaf2;
+    --bg3:       #efe7db;
+    --border:    #d6c8b6;
+    --border2:   #b9a78f;
+    --copper:    #8f5317;
+    --copper-lt: #a9682b;
+    --gold:      #a17435;
+    --gold-dim:  #8a6a3e;
+    --copper-dk: #6f3f10;
+    --text:      #2b2115;
+    --muted:     #6c5a45;
+    --muted2:    #4e3f2e;
+    --card:      #fffaf2;
+
+    --cursor-col: #b33a31;
+    --github-col: #4c463f;
+    --vercel-col: #1f1f1f;
+    --cf-col:     #e36d11;
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -123,6 +146,30 @@
     padding: 0.3rem 0.8rem;
     font-size: 0.6rem;
     letter-spacing: 0.12em;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .theme-toggle {
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted2);
+    padding: 0.3rem 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover {
+    border-color: var(--copper);
+    color: var(--copper);
+    background: color-mix(in srgb, var(--copper) 10%, transparent);
   }
 
   .hero-body {
@@ -678,6 +725,9 @@
     padding: 1.5rem 2rem;
     background: #060504;
   }
+  :root[data-theme="light"] .term-body {
+    background: #f2e8da;
+  }
 
   .term-prompt-line {
     font-family: 'JetBrains Mono', monospace;
@@ -1197,7 +1247,10 @@
       <div class="plus-mark"></div>
       <span>BERENT.AI — Beratung + Entwicklung</span>
     </a>
-    <span class="nav-badge">V3</span>
+    <div class="nav-right">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Darstellung umschalten">Modus: Dunkel</button>
+      <span class="nav-badge">V3</span>
+    </div>
   </nav>
 
   <div class="hero-body">
@@ -1622,6 +1675,34 @@
 </footer>
 
 <script>
+// ── THEME TOGGLE (ähnlich berent.ai) ──
+const THEME_STORAGE_KEY = 'berent-theme';
+const root = document.documentElement;
+const toggle = document.getElementById('theme-toggle');
+
+function resolveInitialTheme() {
+  const saved = localStorage.getItem(THEME_STORAGE_KEY);
+  if (saved === 'light' || saved === 'dark') return saved;
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+function applyTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  if (toggle) toggle.textContent = `Modus: ${theme === 'light' ? 'Hell' : 'Dunkel'}`;
+}
+
+const initialTheme = resolveInitialTheme();
+applyTheme(initialTheme);
+
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    localStorage.setItem(THEME_STORAGE_KEY, next);
+    applyTheme(next);
+  });
+}
+
 // ── SCROLL REVEAL ──
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
