@@ -85,6 +85,26 @@
     to   { transform: translate(-80px, 120px); }
   }
 
+  /* ── BACK NAVIGATION ── */
+  .header-back {
+    display: inline-block;
+    position: fixed;
+    top: 0.75rem;
+    left: 1.5rem;
+    z-index: 1000;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    padding: 0.25rem 0.5rem;
+  }
+  .header-back:hover {
+    color: var(--copper);
+  }
+
   /* ══════════════════════════════════════════
      HERO
   ══════════════════════════════════════════ */
@@ -1253,6 +1273,7 @@
 </style>
 </head>
 <body>
+<a href="https://berent.ai/guides" class="header-back" onclick="event.preventDefault(); if(window.opener) { window.close(); } else if(document.referrer.includes('berent.ai')) { history.back(); } else { window.location.href='https://berent.ai/guides'; }">← berent.ai</a>
 <div class="glow-orb"></div>
 
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
